@@ -1,5 +1,3 @@
-/** @format */
-
 import React from "react";
 import { UserIcon } from "@heroicons/react/outline";
 

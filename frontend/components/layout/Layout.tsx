@@ -1,5 +1,3 @@
-/** @format */
-
 import { FC } from "react";
 import Footer from "./footer/Footer";
 import { currencies, navigation } from "./header/constants";

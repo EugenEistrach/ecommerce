@@ -1,5 +1,3 @@
-/** @format */
-
 import { FC } from "react";
 import { Fragment } from "react";
 import { Dialog, Tab, Transition } from "@headlessui/react";

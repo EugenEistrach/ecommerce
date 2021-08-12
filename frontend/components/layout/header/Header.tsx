@@ -1,5 +1,3 @@
-/** @format */
-
 import { FC } from "react";
 import { useState } from "react";
 import { MenuIcon, SearchIcon } from "@heroicons/react/outline";

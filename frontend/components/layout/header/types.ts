@@ -1,5 +1,3 @@
-/** @format */
-
 export interface Featured {
   name: string;
   href: string;

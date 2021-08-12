@@ -1,5 +1,3 @@
-/** @format */
-
 import { Popover, Transition } from "@headlessui/react";
 import { FC, Fragment } from "react";
 import { classNames } from "../../../../libs/classNames";

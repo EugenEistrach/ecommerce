@@ -1,5 +1,3 @@
-/** @format */
-
 import { Tab } from "@headlessui/react";
 import React, { FC } from "react";
 import { classNames } from "../../../../libs/classNames";

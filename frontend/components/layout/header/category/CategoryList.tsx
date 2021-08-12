@@ -1,5 +1,3 @@
-/** @format */
-
 import { Popover } from "@headlessui/react";
 import { FC } from "react";
 import { Navigation } from "../types";

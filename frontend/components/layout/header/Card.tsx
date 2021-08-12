@@ -1,5 +1,3 @@
-/** @format */
-
 import { ShoppingBagIcon } from "@heroicons/react/outline";
 import React from "react";
 
