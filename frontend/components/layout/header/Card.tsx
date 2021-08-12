@@ -5,7 +5,7 @@ import React from "react";
 
 const Card = () => {
   return (
-    <div className="ml-4 flow-root lg:ml-8">
+    <div className="flow-root">
       <a href="#" className="group -m-2 p-2 flex items-center">
         <ShoppingBagIcon
           className="flex-shink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500"

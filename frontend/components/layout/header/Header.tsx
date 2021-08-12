@@ -69,11 +69,15 @@ const Header: FC<HeaderProps> = ({ navigation, currencies }) => {
                   </div>
 
                   <div className="flex-1 flex items-center justify-end">
-                    <div className="flex items-center lg:ml-8">
+                    <div className="flex items-center gap-2 lg:ml-8">
                       <div className="hidden lg:flex">
                         <Search></Search>
                       </div>
                       <Account></Account>
+                      <span
+                        className="mx-2 h-6 w-px bg-gray-200"
+                        aria-hidden="true"
+                      />
                       <Card></Card>
                     </div>
                   </div>
