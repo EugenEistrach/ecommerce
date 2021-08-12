@@ -2,7 +2,7 @@ import "dotenv/config";
 
 import { list } from "@keystone-next/keystone/schema";
 import { cloudinaryImage } from "@keystone-next/cloudinary";
-import { text } from "@keystone-next/fields";
+import { relationship, text } from "@keystone-next/fields";
 
 export const CloudImage = list({
   fields: {
@@ -15,6 +15,13 @@ export const CloudImage = list({
         folder: process.env.CLOUDINARY_API_FOLDER!,
       },
     }),
-    altText: text(),
+    name: text(),
+    products: relationship({ ref: "Product.images", many: true }),
+  },
+  ui: {
+    listView: {
+      initialColumns: ["name", "image", "products"],
+    },
+    labelField: "name",
   },
 });
