@@ -3,18 +3,6 @@ import { list } from "@keystone-next/keystone/schema";
 
 export const Product = list({
   fields: {
-    name: text({ isRequired: true }),
-    description: text({ ui: { displayMode: "textarea" } }),
-    images: relationship({
-      ref: "CloudImage.products",
-      ui: {
-        displayMode: "cards",
-        cardFields: ["image", "name"],
-        inlineCreate: { fields: ["image", "name"] },
-        inlineEdit: { fields: ["image", "name"] },
-      },
-      many: true,
-    }),
     status: select({
       options: [
         { label: "Draft", value: "DRAFT" },
@@ -26,12 +14,32 @@ export const Product = list({
         createView: { fieldMode: "hidden" },
       },
     }),
-    price: integer(),
+    name: text({ isRequired: true }),
+    price: integer({ isRequired: true }),
+    description: text({ ui: { displayMode: "textarea" } }),
+    images: relationship({
+      ref: "CloudImage.products",
+      ui: {
+        displayMode: "cards",
+        cardFields: ["image", "name"],
+        inlineCreate: { fields: ["image", "name"] },
+        inlineEdit: { fields: ["image", "name"] },
+      },
+      many: true,
+    }),
     createdBy: relationship({
-      ref: "User.products",
+      ref: "User.createdProducts",
       defaultValue: ({ context }) => ({
         connect: { id: context.session.itemId },
       }),
+      ui: {
+        itemView: {
+          fieldMode: "read",
+        },
+        createView: {
+          fieldMode: "hidden",
+        },
+      },
     }),
   },
 });
