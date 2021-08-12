@@ -3,36 +3,10 @@ type User {
   name: String
   email: String
   password: PasswordState
-  posts(
-    where: PostWhereInput! = {}
-    search: String
-    sortBy: [SortPostsBy!]
-      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [PostOrderByInput!]! = []
-    first: Int
-    skip: Int! = 0
-  ): [Post!]
-  _postsMeta(
-    where: PostWhereInput! = {}
-    search: String
-    sortBy: [SortPostsBy!]
-      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [PostOrderByInput!]! = []
-    first: Int
-    skip: Int! = 0
-  ): _QueryMeta
-    @deprecated(
-      reason: "This query will be removed in a future version. Please use postsCount instead."
-    )
-  postsCount(where: PostWhereInput! = {}): Int
 }
 
 type PasswordState {
   isSet: Boolean!
-}
-
-type _QueryMeta {
-  count: Int
 }
 
 input UserWhereInput {
@@ -83,9 +57,6 @@ input UserWhereInput {
   email_in: [String]
   email_not_in: [String]
   password_is_set: Boolean
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
 }
 
 input UserWhereUniqueInput {
@@ -117,14 +88,6 @@ input UserUpdateInput {
   name: String
   email: String
   password: String
-  posts: PostRelateToManyInput
-}
-
-input PostRelateToManyInput {
-  create: [PostCreateInput]
-  connect: [PostWhereUniqueInput]
-  disconnect: [PostWhereUniqueInput]
-  disconnectAll: Boolean
 }
 
 input UsersUpdateInput {
@@ -136,51 +99,70 @@ input UserCreateInput {
   name: String
   email: String
   password: String
-  posts: PostRelateToManyInput
 }
 
 input UsersCreateInput {
   data: UserCreateInput
 }
 
-type Post {
+type CloudImage {
   id: ID!
-  title: String
-  status: String
-  content: Post_content_DocumentField
-  publishDate: String
-  author: User
-  tags(
-    where: TagWhereInput! = {}
-    search: String
-    sortBy: [SortTagsBy!]
-      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [TagOrderByInput!]! = []
-    first: Int
-    skip: Int! = 0
-  ): [Tag!]
-  _tagsMeta(
-    where: TagWhereInput! = {}
-    search: String
-    sortBy: [SortTagsBy!]
-      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [TagOrderByInput!]! = []
-    first: Int
-    skip: Int! = 0
-  ): _QueryMeta
-    @deprecated(
-      reason: "This query will be removed in a future version. Please use tagsCount instead."
-    )
-  tagsCount(where: TagWhereInput! = {}): Int
+  image: CloudinaryImage_File
+  altText: String
 }
 
-type Post_content_DocumentField {
-  document(hydrateRelationships: Boolean! = false): JSON!
+type CloudinaryImage_File {
+  id: ID
+  filename: String
+  originalFilename: String
+  mimetype: String
+  encoding: String
+  publicUrl: String
+  publicUrlTransformed(transformation: CloudinaryImageFormat): String
 }
 
-input PostWhereInput {
-  AND: [PostWhereInput!]
-  OR: [PostWhereInput!]
+"""
+Mirrors the formatting options [Cloudinary provides](https://cloudinary.com/documentation/image_transformation_reference).
+All options are strings as they ultimately end up in a URL.
+"""
+input CloudinaryImageFormat {
+  """
+   Rewrites the filename to be this pretty string. Do not include `/` or `.`
+  """
+  prettyName: String
+  width: String
+  height: String
+  crop: String
+  aspect_ratio: String
+  gravity: String
+  zoom: String
+  x: String
+  y: String
+  format: String
+  fetch_format: String
+  quality: String
+  radius: String
+  angle: String
+  effect: String
+  opacity: String
+  border: String
+  background: String
+  overlay: String
+  underlay: String
+  default_image: String
+  delay: String
+  color: String
+  color_space: String
+  dpr: String
+  page: String
+  density: String
+  flags: String
+  transformation: String
+}
+
+input CloudImageWhereInput {
+  AND: [CloudImageWhereInput!]
+  OR: [CloudImageWhereInput!]
   id: ID
   id_not: ID
   id_lt: ID
@@ -189,200 +171,68 @@ input PostWhereInput {
   id_gte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  title: String
-  title_not: String
-  title_contains: String
-  title_not_contains: String
-  title_starts_with: String
-  title_not_starts_with: String
-  title_ends_with: String
-  title_not_ends_with: String
-  title_i: String
-  title_not_i: String
-  title_contains_i: String
-  title_not_contains_i: String
-  title_starts_with_i: String
-  title_not_starts_with_i: String
-  title_ends_with_i: String
-  title_not_ends_with_i: String
-  title_in: [String]
-  title_not_in: [String]
-  status: String
-  status_not: String
-  status_in: [String]
-  status_not_in: [String]
-  publishDate: String
-  publishDate_not: String
-  publishDate_lt: String
-  publishDate_lte: String
-  publishDate_gt: String
-  publishDate_gte: String
-  publishDate_in: [String]
-  publishDate_not_in: [String]
-  author: UserWhereInput
-  author_is_null: Boolean
-  tags_every: TagWhereInput
-  tags_some: TagWhereInput
-  tags_none: TagWhereInput
+  image: String
+  image_not: String
+  image_in: [String]
+  image_not_in: [String]
+  altText: String
+  altText_not: String
+  altText_contains: String
+  altText_not_contains: String
+  altText_starts_with: String
+  altText_not_starts_with: String
+  altText_ends_with: String
+  altText_not_ends_with: String
+  altText_i: String
+  altText_not_i: String
+  altText_contains_i: String
+  altText_not_contains_i: String
+  altText_starts_with_i: String
+  altText_not_starts_with_i: String
+  altText_ends_with_i: String
+  altText_not_ends_with_i: String
+  altText_in: [String]
+  altText_not_in: [String]
 }
 
-input PostWhereUniqueInput {
+input CloudImageWhereUniqueInput {
   id: ID
 }
 
-enum SortPostsBy {
+enum SortCloudImagesBy {
   id_ASC
   id_DESC
-  title_ASC
-  title_DESC
-  status_ASC
-  status_DESC
-  publishDate_ASC
-  publishDate_DESC
+  altText_ASC
+  altText_DESC
 }
 
-input PostOrderByInput {
+input CloudImageOrderByInput {
   id: OrderDirection
-  title: OrderDirection
-  status: OrderDirection
-  publishDate: OrderDirection
+  altText: OrderDirection
 }
 
-input PostUpdateInput {
-  title: String
-  status: String
-  content: JSON
-  publishDate: String
-  author: UserRelateToOneInput
-  tags: TagRelateToManyInput
+input CloudImageUpdateInput {
+  image: Upload
+  altText: String
 }
 
-input UserRelateToOneInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
-  disconnect: UserWhereUniqueInput
-  disconnectAll: Boolean
-}
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
 
-input TagRelateToManyInput {
-  create: [TagCreateInput]
-  connect: [TagWhereUniqueInput]
-  disconnect: [TagWhereUniqueInput]
-  disconnectAll: Boolean
-}
-
-input PostsUpdateInput {
+input CloudImagesUpdateInput {
   id: ID!
-  data: PostUpdateInput
+  data: CloudImageUpdateInput
 }
 
-input PostCreateInput {
-  title: String
-  status: String
-  content: JSON
-  publishDate: String
-  author: UserRelateToOneInput
-  tags: TagRelateToManyInput
+input CloudImageCreateInput {
+  image: Upload
+  altText: String
 }
 
-input PostsCreateInput {
-  data: PostCreateInput
-}
-
-type Tag {
-  id: ID!
-  name: String
-  posts(
-    where: PostWhereInput! = {}
-    search: String
-    sortBy: [SortPostsBy!]
-      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [PostOrderByInput!]! = []
-    first: Int
-    skip: Int! = 0
-  ): [Post!]
-  _postsMeta(
-    where: PostWhereInput! = {}
-    search: String
-    sortBy: [SortPostsBy!]
-      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [PostOrderByInput!]! = []
-    first: Int
-    skip: Int! = 0
-  ): _QueryMeta
-    @deprecated(
-      reason: "This query will be removed in a future version. Please use postsCount instead."
-    )
-  postsCount(where: PostWhereInput! = {}): Int
-}
-
-input TagWhereInput {
-  AND: [TagWhereInput!]
-  OR: [TagWhereInput!]
-  id: ID
-  id_not: ID
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  name: String
-  name_not: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  name_i: String
-  name_not_i: String
-  name_contains_i: String
-  name_not_contains_i: String
-  name_starts_with_i: String
-  name_not_starts_with_i: String
-  name_ends_with_i: String
-  name_not_ends_with_i: String
-  name_in: [String]
-  name_not_in: [String]
-  posts_every: PostWhereInput
-  posts_some: PostWhereInput
-  posts_none: PostWhereInput
-}
-
-input TagWhereUniqueInput {
-  id: ID
-}
-
-enum SortTagsBy {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-}
-
-input TagOrderByInput {
-  id: OrderDirection
-  name: OrderDirection
-}
-
-input TagUpdateInput {
-  name: String
-  posts: PostRelateToManyInput
-}
-
-input TagsUpdateInput {
-  id: ID!
-  data: TagUpdateInput
-}
-
-input TagCreateInput {
-  name: String
-  posts: PostRelateToManyInput
-}
-
-input TagsCreateInput {
-  data: TagCreateInput
+input CloudImagesCreateInput {
+  data: CloudImageCreateInput
 }
 
 """
@@ -393,6 +243,10 @@ scalar JSON
     url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf"
   )
 
+type _QueryMeta {
+  count: Int
+}
+
 type Mutation {
   createUser(data: UserCreateInput): User
   createUsers(data: [UsersCreateInput]): [User]
@@ -400,18 +254,12 @@ type Mutation {
   updateUsers(data: [UsersUpdateInput]): [User]
   deleteUser(id: ID!): User
   deleteUsers(ids: [ID!]): [User]
-  createPost(data: PostCreateInput): Post
-  createPosts(data: [PostsCreateInput]): [Post]
-  updatePost(id: ID!, data: PostUpdateInput): Post
-  updatePosts(data: [PostsUpdateInput]): [Post]
-  deletePost(id: ID!): Post
-  deletePosts(ids: [ID!]): [Post]
-  createTag(data: TagCreateInput): Tag
-  createTags(data: [TagsCreateInput]): [Tag]
-  updateTag(id: ID!, data: TagUpdateInput): Tag
-  updateTags(data: [TagsUpdateInput]): [Tag]
-  deleteTag(id: ID!): Tag
-  deleteTags(ids: [ID!]): [Tag]
+  createCloudImage(data: CloudImageCreateInput): CloudImage
+  createCloudImages(data: [CloudImagesCreateInput]): [CloudImage]
+  updateCloudImage(id: ID!, data: CloudImageUpdateInput): CloudImage
+  updateCloudImages(data: [CloudImagesUpdateInput]): [CloudImage]
+  deleteCloudImage(id: ID!): CloudImage
+  deleteCloudImages(ids: [ID!]): [CloudImage]
   authenticateUserWithPassword(
     email: String!
     password: String!
@@ -476,52 +324,29 @@ type Query {
       reason: "This query will be removed in a future version. Please use usersCount instead."
     )
   usersCount(where: UserWhereInput! = {}): Int
-  allPosts(
-    where: PostWhereInput! = {}
+  allCloudImages(
+    where: CloudImageWhereInput! = {}
     search: String
-    sortBy: [SortPostsBy!]
+    sortBy: [SortCloudImagesBy!]
       @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [PostOrderByInput!]! = []
+    orderBy: [CloudImageOrderByInput!]! = []
     first: Int
     skip: Int! = 0
-  ): [Post!]
-  Post(where: PostWhereUniqueInput!): Post
-  _allPostsMeta(
-    where: PostWhereInput! = {}
+  ): [CloudImage!]
+  CloudImage(where: CloudImageWhereUniqueInput!): CloudImage
+  _allCloudImagesMeta(
+    where: CloudImageWhereInput! = {}
     search: String
-    sortBy: [SortPostsBy!]
+    sortBy: [SortCloudImagesBy!]
       @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [PostOrderByInput!]! = []
-    first: Int
-    skip: Int! = 0
-  ): _QueryMeta
-    @deprecated(
-      reason: "This query will be removed in a future version. Please use postsCount instead."
-    )
-  postsCount(where: PostWhereInput! = {}): Int
-  allTags(
-    where: TagWhereInput! = {}
-    search: String
-    sortBy: [SortTagsBy!]
-      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [TagOrderByInput!]! = []
-    first: Int
-    skip: Int! = 0
-  ): [Tag!]
-  Tag(where: TagWhereUniqueInput!): Tag
-  _allTagsMeta(
-    where: TagWhereInput! = {}
-    search: String
-    sortBy: [SortTagsBy!]
-      @deprecated(reason: "sortBy has been deprecated in favour of orderBy")
-    orderBy: [TagOrderByInput!]! = []
+    orderBy: [CloudImageOrderByInput!]! = []
     first: Int
     skip: Int! = 0
   ): _QueryMeta
     @deprecated(
-      reason: "This query will be removed in a future version. Please use tagsCount instead."
+      reason: "This query will be removed in a future version. Please use cloudImagesCount instead."
     )
-  tagsCount(where: TagWhereInput! = {}): Int
+  cloudImagesCount(where: CloudImageWhereInput! = {}): Int
   authenticatedItem: AuthenticatedItem
   keystone: KeystoneMeta!
 }
