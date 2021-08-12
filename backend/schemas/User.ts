@@ -14,8 +14,9 @@ export const User = list({
     cart: relationship({
       ref: "Cart.user",
     }),
-    createdProducts: relationship({
-      ref: "Product.createdBy",
+    products: relationship({
+      ref: "Product.user",
+      label: "Created products",
       many: true,
       ui: {
         itemView: {

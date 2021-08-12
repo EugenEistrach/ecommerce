@@ -27,8 +27,9 @@ export const Product = list({
       },
       many: true,
     }),
-    createdBy: relationship({
-      ref: "User.createdProducts",
+    user: relationship({
+      ref: "User.products",
+      label: "Created By",
       defaultValue: ({ context }) => ({
         connect: { id: context.session.itemId },
       }),

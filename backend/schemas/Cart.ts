@@ -11,16 +11,6 @@ export const Cart = list({
     },
   },
   fields: {
-    user: relationship({
-      ref: "User.cart",
-      defaultValue: ({ context }) => ({
-        connect: { id: context.session.itemId },
-      }),
-      ui: {
-        itemView: { fieldMode: "read" },
-        createView: { fieldMode: "hidden" },
-      },
-    }),
     items: relationship({
       ref: "CartItem.cart",
       many: true,
@@ -32,6 +22,17 @@ export const Cart = list({
         linkToItem: true,
         inlineConnect: true,
       },
+    }),
+    user: relationship({
+      ref: "User.cart",
+      defaultValue: ({ context }) => ({
+        connect: { id: context.session.itemId },
+      }),
+      ui: {
+        itemView: { fieldMode: "read" },
+        createView: { fieldMode: "hidden" },
+      },
+      label: "Created by",
     }),
   },
   hooks: {
