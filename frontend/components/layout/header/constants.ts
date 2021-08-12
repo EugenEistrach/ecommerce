@@ -1,4 +1,3 @@
-export const currencies = ["CAD", "USD", "AUD", "EUR", "GBP"];
 export const navigation = {
   categories: [
     {

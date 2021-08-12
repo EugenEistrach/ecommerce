@@ -11,10 +11,9 @@ import Logo from "./Logo";
 
 interface HeaderProps {
   navigation: Navigation;
-  currencies: string[];
 }
 
-const Header: FC<HeaderProps> = ({ navigation, currencies }) => {
+const Header: FC<HeaderProps> = ({ navigation }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,7 +21,6 @@ const Header: FC<HeaderProps> = ({ navigation, currencies }) => {
       {/* Mobile menu */}
       <MobileMenu
         navigation={navigation}
-        currencies={currencies}
         open={open}
         setOpen={setOpen}
       ></MobileMenu>
