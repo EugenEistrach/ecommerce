@@ -1,5 +1,5 @@
 import { relationship, virtual } from "@keystone-next/fields";
-import { list } from "@keystone-next/keystone/schema";
+import { gql, list } from "@keystone-next/keystone/schema";
 import { schema } from "@keystone-next/types";
 
 export const Cart = list({
@@ -33,6 +33,25 @@ export const Cart = list({
         createView: { fieldMode: "hidden" },
       },
       label: "Created by",
+    }),
+    label: virtual({
+      ui: {
+        itemView: {
+          fieldMode: "hidden",
+        },
+      },
+      field: schema.field({
+        type: schema.String,
+        resolve: async (item, args, context) => {
+          const {
+            user: { name },
+          } = await context.lists.Cart.findOne({
+            where: { id: item.id.toString() },
+            query: gql`user { name }`,
+          });
+          return `${name}'s Cart`;
+        },
+      }),
     }),
   },
   hooks: {
