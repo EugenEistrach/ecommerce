@@ -6,7 +6,7 @@ export const CartItem = list({
   ui: {
     listView: {
       // @ts-ignore
-      initialColumns: ["id", "product", "quantity", "cart"],
+      initialColumns: ["id", "cart", "product", "quantity"],
     },
     hideCreate: true,
   },
