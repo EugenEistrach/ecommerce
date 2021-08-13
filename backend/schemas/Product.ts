@@ -14,6 +14,7 @@ export const Product = list({
         createView: { fieldMode: "hidden" },
       },
     }),
+    code: text({ isRequired: true, isUnique: true }),
     name: text({ isRequired: true }),
     price: integer({ isRequired: true }),
     description: text({ ui: { displayMode: "textarea" } }),
