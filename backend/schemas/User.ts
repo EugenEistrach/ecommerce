@@ -14,6 +14,9 @@ export const User = list({
     cart: relationship({
       ref: "Cart.user",
     }),
+    addresses: relationship({
+      ref: "Address.user",
+    }),
     products: relationship({
       ref: "Product.user",
       label: "Created products",
