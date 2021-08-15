@@ -17,6 +17,7 @@ export const CloudImage = list({
     }),
     name: text(),
     products: relationship({ ref: "Product.images", many: true }),
+    categories: relationship({ ref: "Category.images", many: true }),
   },
   ui: {
     listView: {

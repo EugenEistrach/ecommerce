@@ -29,6 +29,19 @@ export const User = list({
         },
       },
     }),
+    categories: relationship({
+      ref: "Category.user",
+      label: "Created categories",
+      many: true,
+      ui: {
+        itemView: {
+          fieldMode: "read",
+        },
+        createView: {
+          fieldMode: "hidden",
+        },
+      },
+    }),
     products: relationship({
       ref: "Product.user",
       label: "Created products",

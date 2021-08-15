@@ -1,7 +1,7 @@
 import { integer, relationship, select, text } from "@keystone-next/fields";
 import { list } from "@keystone-next/keystone/schema";
 
-export const Product = list({
+export const Category = list({
   fields: {
     status: select({
       options: [
@@ -16,10 +16,9 @@ export const Product = list({
     }),
     code: text({ isRequired: true, isUnique: true }),
     name: text({ isRequired: true }),
-    price: integer({ isRequired: true }),
     description: text({ ui: { displayMode: "textarea" } }),
     images: relationship({
-      ref: "CloudImage.products",
+      ref: "CloudImage.categories",
       ui: {
         displayMode: "cards",
         cardFields: ["image", "name"],
@@ -28,12 +27,22 @@ export const Product = list({
       },
       many: true,
     }),
-    categories: relationship({
-      ref: "Category.products",
+    parentCategories: relationship({
+      ref: "Category.childCategories",
+      many: true,
+    }),
+    childCategories: relationship({
+      ref: "Category.parentCategories",
+      label: "Subcategories",
+      many: true,
+    }),
+
+    products: relationship({
+      ref: "Product.categories",
       many: true,
     }),
     user: relationship({
-      ref: "User.products",
+      ref: "User.categories",
       label: "Created By",
       defaultValue: ({ context }) => ({
         connect: { id: context.session.itemId },
