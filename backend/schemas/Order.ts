@@ -12,6 +12,12 @@ export const Order = list({
   fields: {
     totalPrice: integer(),
     items: relationship({ ref: "OrderItem.order", many: true }),
+    shippingAddress: relationship({
+      ref: "Address",
+    }),
+    billingAddress: relationship({
+      ref: "Address",
+    }),
     user: relationship({ ref: "User.orders" }),
   },
 });

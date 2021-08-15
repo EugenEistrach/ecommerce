@@ -14,6 +14,9 @@ export const User = list({
     cart: relationship({
       ref: "Cart.user",
     }),
+    addresses: relationship({
+      ref: "Address.user",
+    }),
     orders: relationship({
       ref: "Order.user",
       many: true,

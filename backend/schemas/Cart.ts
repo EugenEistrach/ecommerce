@@ -34,6 +34,12 @@ export const Cart = list({
       },
       label: "Created by",
     }),
+    shippingAddress: relationship({
+      ref: "Address",
+    }),
+    billingAddress: relationship({
+      ref: "Address",
+    }),
     label: virtual({
       ui: {
         itemView: {

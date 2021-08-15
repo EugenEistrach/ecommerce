@@ -6,9 +6,11 @@ import { Cart } from "./Cart";
 import { CartItem } from "./CartItem";
 import { Order } from "./Order";
 import { OrderItem } from "./OrderItem";
+import { Address } from "./Address";
 
 export const lists = createSchema({
   User,
+  Address,
   Product,
   Order,
   OrderItem,
