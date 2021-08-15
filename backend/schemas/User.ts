@@ -17,6 +17,18 @@ export const User = list({
     addresses: relationship({
       ref: "Address.user",
     }),
+    orders: relationship({
+      ref: "Order.user",
+      many: true,
+      ui: {
+        itemView: {
+          fieldMode: "read",
+        },
+        createView: {
+          fieldMode: "hidden",
+        },
+      },
+    }),
     products: relationship({
       ref: "Product.user",
       label: "Created products",
